@@ -11,8 +11,10 @@ SwiftUI 에 대한 내용을 끄적인 문서입니다.
 ![iOS 14](https://img.shields.io/badge/iOS_14-e4405f?style=for-the-badge&logo=apple&logoColor=white)
 
 #### iOS14
-`ScrollView` 안에 `LazyVStack` 을 사용하여 모든 구분선를 제거할 수 있습니다
-기본적으로 리스트 아래에 추가적인 구분선들이 존재하지 않습니다(iOS13은 data와 무관하게 구분선들이 기본으로 그려졌음)
+
+`ScrollView` 안에 `LazyVStack` 을 사용하여 모든 구분선를 제거할 수 있습니다.
+
+또한 기본적으로 리스트 아래에 추가적인 구분선들이 존재하지 않습니다(iOS13은 data와 무관하게 구분선들이 기본으로 그려졌음)
 
 #### iOS13
 `UITableView.appearance().separatorStyle = .none` 을 사용해 구분선을 제거할 수 있습니다.
