@@ -49,12 +49,16 @@ NavigationLink(destination: ...) {
 
 data 로 사용하는 `struct`가 `Identifiable` 를 준수하면 List에서 id를 명시하지 않아도 됩니다.
 
+<details>
+
 ```swift
 struct Food: Identifiable {
     let id = UUID()
     ...
 }
 ```
+
+</details>
 
 #### Before
 
@@ -68,9 +72,13 @@ List(foods, id: \.name) { ... }
 
 #### After
 
+<details>
+
 ```swift
 List(foods) { ... }
 ```
+
+</details>
 
 ### List 구분선(Separator) 제거하기
 
@@ -85,6 +93,9 @@ List(foods) { ... }
 
 #### iOS13
 `UITableView.appearance().separatorStyle = .none` 을 사용해 구분선을 제거할 수 있습니다.
+
+<details>
+
 ```swift
 // 1. onAppear에서 호출하기
 List {
@@ -100,6 +111,8 @@ init() {
 }
 ```
 
+</details>
+
 ## ScrollView
 
 ### Horizontal ScrollView 만들기
@@ -107,6 +120,8 @@ init() {
 1. 각 `data`를 `ForEach` 로 감싸서 각 `data`들에 대한 뷰를 그립니다
 2. `ForEach`를 `HStack`으로 감싸서 가로로 배열되게 합니다
 3. `HStack`을 `ScrollView(.horizontal)`로 감싸면 됩니다.
+
+<details>
 
 ```swift
 // 1. onAppear에서 호출하기
@@ -119,15 +134,21 @@ ScrollView(.horizontal) {
 }
 ```
 
+</details>
+
 ### ScrollView 의 스크롤바 제거하기
 `ScrollView`의 `showsIndicators` 값을 `false` 로 세팅합니다.
 
+<details>
+    
 ```swift
 // 1. onAppear에서 호출하기
 ScrollView(showsIndicators: false) {
    ...
 }
 ```
+
+</details>
 
 ## ZStack
 
