@@ -85,3 +85,42 @@ ScrollView(showsIndicators: false) {
    ...
 }
 ```
+
+## ZStack
+
+### 밑에서 올라오는 뷰 만들기
+`State` 와 `withAnimation`, 그리고 `offset` 을 사용하여 밑에서 올라오는 뷰를 만들 수 있습니다.
+
+```swift
+struct BelowView: View {
+    @State var showingUpper: Bool = false   // 1. 뷰를 올릴지 내릴지 결정할 State 값 
+    
+    var body: some View {
+        ZStack {
+            Text("Show upper view")
+                .onTapGesture {             // 2. "보여주기"를 탭했을 때 State 값을 true로 변경
+                    withAnimation {
+                        showingUpper = true
+                    }
+                }
+            
+            UpperView(showingUpper: $showingUpper)  // 3. 위로 올라올 뷰는 State 값을 바인딩
+                // 4. 뷰 오프셋의 y값을 State 값에 따라 바뀌도로 함 (true이면 y = 0, false 이면 y = 스크린 높이)
+                .offset(x: 0, y: showingUpper ? 0 : UIScreen.main.bounds.height)
+        }
+    }
+}
+
+struct UpperView: View {
+    @Binding var showingUpper: Bool         // 5. (3)번에서 바인딩한 프로퍼티
+    
+    var body: some View {
+        Text("Hide upper view")
+            .onTapGesture {                 // 6. 바인딩 값을 false로 변경하여  (4)번의 오프셋 값으 변경
+                withAnimation {
+                    showingUpper = false
+                }
+            }
+    }
+}
+```
