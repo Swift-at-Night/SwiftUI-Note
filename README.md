@@ -4,6 +4,45 @@
 
 SwiftUI 에 대한 내용을 끄적인 문서입니다.
 
+## Image
+
+### NavigationLink 또는 Button에서 사용되는 이미지가 파란색일 때
+
+`NavigationLink` 나 `Button` 내부에서 쓰는 이미지는 파란색으로 덮어씌워지게 됩니다. 이를 해결하는 방법은 두가지가 있습니다.
+
+#### PlainButtonStyle()
+
+<details>
+
+```swift
+NavigationLink(destination: ...) {
+    Image(...)
+}
+.buttonStyle(PlainButtonStyle())
+
+
+Button(action: ...) {
+    Image(...)
+}
+.buttonStyle(PlainButtonStyle())
+```
+
+</details>
+
+#### renderingMode()
+
+<details>
+
+```swift
+NavigationLink(destination: ...) {
+    Image(...)
+        .renderingMode(.original)
+}
+```
+
+</details>
+
+
 ## List
 
 ### List 에서 id 파라미터 생략하기
