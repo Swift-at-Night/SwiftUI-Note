@@ -19,9 +19,13 @@ struct Food: Identifiable {
 
 #### Before
 
+<details>
+
 ```swift
 List(foods, id: \.name) { ... }
 ```
+
+</details>
 
 #### After
 
@@ -91,6 +95,8 @@ ScrollView(showsIndicators: false) {
 ### 밑에서 올라오는 뷰 만들기
 `State` 와 `withAnimation`, 그리고 `offset` 을 사용하여 밑에서 올라오는 뷰를 만들 수 있습니다.
 
+<details>
+    
 ```swift
 struct BelowView: View {
     @State var showingUpper: Bool = false   // 1. 뷰를 올릴지 내릴지 결정할 State 값 
@@ -124,3 +130,5 @@ struct UpperView: View {
     }
 }
 ```
+
+</details>
