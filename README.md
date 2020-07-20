@@ -5,6 +5,30 @@
 SwiftUI 에 대한 내용을 끄적인 문서입니다.
 
 ## List
+
+### List 에서 id 파라미터 생략하기
+
+data 로 사용하는 `struct`가 `Identifiable` 를 준수하면 List에서 id를 명시하지 않아도 됩니다.
+
+```swift
+struct Food: Identifiable {
+    let id = UUID()
+    ...
+}
+```
+
+#### Before
+
+```swift
+List(foods, id: \.name) { ... }
+```
+
+#### After
+
+```swift
+List(foods) { ... }
+```
+
 ### List 구분선(Separator) 제거하기
 
 ![iOS 13](https://img.shields.io/badge/iOS_13-999999?style=for-the-badge&logo=apple&logoColor=white)
