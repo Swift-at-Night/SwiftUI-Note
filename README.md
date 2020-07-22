@@ -4,6 +4,58 @@
 
 SwiftUI 에 대한 내용을 끄적인 문서입니다.
 
+## Color
+
+### 그라데이션이 적용된 뷰
+
+`LinearGradient(gradient:startPoint:endPoint)` 를 사용해 그라데이션 뷰를 생성할 수 있습니다.
+
+<details>
+
+```swift
+LinearGradient(gradient: Gradient(colors: [.green, .purple]), 
+               startPoint: .leading, 
+               endPoint: .trailing)
+```
+
+</details>
+
+## Button
+
+### 버튼 스타일 커스터마이징 하기
+
+`ButtonStyle` 을 준수하는 `struct` 를 생성하고 `makeBody(configuration:)` 델리게이트 메소드를 구현하여 버튼 스타일을 커스터마이징 할 수 있습니다.
+
+<details>
+
+```swift
+// 배경에 그라데이션이 적용된 스타일
+struct LinearGradientStyle: ButtonStyle {
+ 
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .padding()
+            .background(
+                LinearGradient(gradient: Gradient(colors: [.green, .purple]), startPoint: .leading, endPoint: .trailing)
+            )
+            .cornerRadius(40)
+            .padding(.horizontal, 20)
+    }
+}
+```
+
+```swift
+// 사용 예시
+Button(action: ...) {
+    ...
+}
+.buttonStyle(LinearGradientStyle())
+```
+
+</details>
+
 ## Image
 
 ### NavigationLink 또는 Button에서 사용되는 이미지가 파란색일 때
