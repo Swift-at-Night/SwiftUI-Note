@@ -143,6 +143,20 @@ List(foods) { ... }
 
 또한 기본적으로 리스트 아래에 추가적인 구분선들이 존재하지 않습니다(iOS13은 data와 무관하게 구분선들이 기본으로 그려졌음)
 
+<details>
+  
+```swift
+ScrollView {
+    LazyVStack {
+        ForEach(items) { item in
+            ItemRow(drink: drink)
+        }
+    }
+}
+```
+
+</details>
+
 #### iOS13
 `UITableView.appearance().separatorStyle = .none` 을 사용해 구분선을 제거할 수 있습니다.
 
