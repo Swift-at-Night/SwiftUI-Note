@@ -149,7 +149,7 @@ List(foods) { ... }
 ScrollView {
     LazyVStack {
         ForEach(items) { item in
-            ItemRow(drink: drink)
+            ItemRow(item: item)
         }
     }
 }
