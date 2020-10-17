@@ -271,3 +271,8 @@ struct UpperView: View {
 ```
 
 </details>
+
+## Text
+
+### 한 개의 builder 안에 최대 몇 개까지 들어갈까?
+`VStack` 기준, 10개를 넘기면 에러가 발생합니다: `Extra argument in call`
