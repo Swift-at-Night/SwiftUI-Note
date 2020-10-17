@@ -58,7 +58,7 @@ Button(action: ...) {
 
 ### 둥근 테두리
 
-`RoundedRectangle` 뷰에 stroke 를 적용하면 둥근 테두리를 구현할 수 있습니다.
+`RoundedRectangle` 뷰에 `stroke` 를 적용하면 둥근 테두리를 구현할 수 있습니다.
 
 <details>
   
