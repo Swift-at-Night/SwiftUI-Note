@@ -276,3 +276,25 @@ struct UpperView: View {
 
 ### 한 개의 builder 안에 최대 몇 개까지 들어갈까?
 `VStack` 기준, 10개를 넘기면 에러가 발생합니다: `Extra argument in call`
+
+## App
+
+### AppDelegate 메소드 사용하기
+
+`UIApplicationDelegate` 를 준수하는 클래스를 `App`에 `@UIApplicationDelegateAdaptor(클래스타입)` 속성에 해당 클래스 타입을 명시하여 프로퍼티를 선언해주면 됩니다.
+
+<details>
+  
+  ```swift
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  ```
+  
+  ```swift
+  class AppDelegate: NSObject, UIApplicationDelegate {
+      func application(..., didFinishLaunchingWithOptions...) {
+          ...
+      }
+  }
+  ```
+  
+</details>
