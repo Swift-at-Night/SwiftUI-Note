@@ -309,7 +309,7 @@ struct UpperView: View {
 이 속성을 사용하게 되면 해당 프로퍼티는 SwiftUI 프레임워크에 의해 관리됩니다. (뷰 라이프사이클에 의존하지 않음)
 예) 타이머 숫자, 이름을 입력받는 텍스트 필드
 
-이 속성으로 선언된 프로퍼티의 데이터에 접근할 때는 `$` (바인딩) 을 사용하면 됩니다.
+이 속성으로 선언된 프로퍼티의 데이터의 값 변화를 전달받기 위해서는 `$` (바인딩) 을 사용하면 됩니다.
 
 <details>
   
@@ -323,7 +323,29 @@ struct UpperView: View {
   
 </details>
 
+### Binding
+
+`Binding` 속성은 `State` 속성으로 선언된 프로퍼티의 데이터의 값 변화(mutating)을 전달받기 위해 사용합니다.
+
+<details>
+  
+  ```swift
+  @Binding var username: String
+  ```
+  
+  ```swift
+  @State var username: String = ""
+  
+  var body: some View {
+      ChildView(username: $username)
+  }
+  ```
+  
+</details>
+
 ### StateObject
+
+![iOS 14](https://img.shields.io/badge/iOS_14-e4405f?style=for-the-badge&logo=apple&logoColor=white)
 
 `StateObject` 는 뷰모델을 특정 뷰가 아닌 SwiftUI 프레임워크에서 관리하도록 하고 그 모델을 *참조* 합니다. (Source of truth)
 이 속성을 사용할 때는 선언하고자 하는 뷰모델의 클래스가 반드시 `ObservableObject` 를 준수하고 있어야 합니다.
