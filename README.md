@@ -281,6 +281,8 @@ struct UpperView: View {
 
 ### AppDelegate 메소드 사용하기
 
+![iOS 14](https://img.shields.io/badge/iOS_14-e4405f?style=for-the-badge&logo=apple&logoColor=white)
+
 `UIApplicationDelegate` 를 준수하는 클래스를 `App`에 `@UIApplicationDelegateAdaptor(클래스타입)` 속성에 해당 클래스 타입을 명시하여 프로퍼티를 선언해주면 됩니다.
 
 <details>
@@ -297,4 +299,63 @@ struct UpperView: View {
   }
   ```
   
+</details>
+
+## State & Data Flows
+
+### State
+
+`State` 속성은 현재 뷰 내에 선언된 프로퍼티가 만약 값이 변경될 때(Mutating) 뷰에 영향(Updating view)을 줄 때 사용합니다.
+이 속성을 사용하게 되면 해당 프로퍼티는 SwiftUI 프레임워크에 의해 관리됩니다. (뷰 라이프사이클에 의존하지 않음)
+예) 타이머 숫자, 이름을 입력받는 텍스트 필드
+
+이 속성으로 선언된 프로퍼티의 데이터에 접근할 때는 `$` (바인딩) 을 사용하면 됩니다.
+
+<details>
+  
+  ```swift
+  @State private var username: String = ""
+  ```
+  
+  ```swift
+  TextField("Enter your name", text: $username)
+  ```
+  
+</details>
+
+### StateObject
+
+`StateObject` 는 뷰모델을 특정 뷰가 아닌 SwiftUI 프레임워크에서 관리하도록 하고 그 모델을 *참조* 합니다. (Source of truth)
+이 속성을 사용할 때는 선언하고자 하는 뷰모델의 클래스가 반드시 `ObservableObject` 를 준수하고 있어야 합니다.
+
+<details>
+  
+```swift
+@StateObject private var data = ViewModel()
+```
+
+</details>
+
+### ObservedObject
+
+`ObservedObject` 는 뷰모델은 현재 뷰의 라이프사이클에 맞춰 사용하고 싶을 때, 즉 현재 뷰 내에서만 사용할 때 쓰이는 속성입니다. (뷰가 관리)
+객체를 생성해도 되지만 이 속성의 특성상(아래의 **주의** 참고) 가급적이면 생성보다는 상위 뷰의 뷰모델로 부터 인스턴스를 전달받는 형태로 사용하는 것을 권장합니다.
+이 속성을 사용할 때는 선언하고자 하는 뷰모델의 클래스가 반드시 `ObservableObject` 를 준수하고 있어야 합니다.
+
+> **중요** 상위 뷰가 존재하는 경우 상위 뷰가 업데이트 될때마다 현재 뷰가 재생성되어 뷰모델이 리셋 됩니다.
+
+<details>
+  
+  ```swift
+  @ObservedObject var data: ViewModel
+  ```
+  
+  ```swift
+  @StateObject private var data = ViewModel()
+  
+  var body: some View {
+      ChildView(data: data)
+  }
+  ```
+
 </details>
