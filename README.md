@@ -56,6 +56,17 @@ Button(action: ...) {
 
 </details>
 
+### 둥근 테두리
+
+`RoundedRectangle` 뷰에 stroke 를 적용하면 둥근 테두리를 구현할 수 있습니다.
+
+<details>
+  ```swift
+  RoundedRectangle(cornerRadius: 28)
+      .stroke(Color.red, lineWidth: 2)
+  ```
+</details>
+
 ## Image
 
 ### NavigationLink 또는 Button에서 사용되는 이미지가 파란색일 때
