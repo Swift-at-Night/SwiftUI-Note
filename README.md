@@ -61,10 +61,12 @@ Button(action: ...) {
 `RoundedRectangle` 뷰에 stroke 를 적용하면 둥근 테두리를 구현할 수 있습니다.
 
 <details>
+  
   ```swift
   RoundedRectangle(cornerRadius: 28)
       .stroke(Color.red, lineWidth: 2)
   ```
+
 </details>
 
 ## Image
