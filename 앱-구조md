@@ -1,0 +1,117 @@
+# 앱 구조
+
+SwiftUI 에서 앱은 아래와 같은 구조를 같습니다.
+
+`App` 프로토콜은 커스텀 `Scene` 을 갖거나 `WindowGroup` 이라는 내장된 `Scene`을 사용할 수 있습니다.
+`Scene` 프로토콜은 `View` 계층을 갖고 있고 의해 라이프 사이클이 관리됩니다.
+
+## App 프로토콜
+
+```swift
+@main
+struct Mail: App {    // App 프로토콜 -> Scene 을 생성
+    @StateObject private var model = MailModel()    // Scene 들 간의 공유를 위해 State선언 (데이터 모델 초기화)
+    
+    var body: some Scene {
+        WindowGroup {   // 사용자는 동시에 1개 이상의 Window를 열 수 있슴
+            MailViewer()
+                .environmentObject(model) // as environmentObject
+        }
+        Settings {
+            SettingsView(model: model)  // as observedObject
+        }
+    }
+}
+
+@main
+struct MyTopLevel {
+    static func main() {
+        // Top-level code goes here
+    }
+}
+```
+
+1. App 프로토콜 앞에 있는 `@main` 은 앱이 시작 지점(entry point)임을 알려줍니다. 
+2. App 프로토콜의 `body` 는 `Scene` 을 생성합니다.
+3. Scene들간의 공유를 위해 상태를 선언하여 데이터 모델을 초기화 합니다.(@StateObject)
+4. 이렇게 초기화된 데이터는 environmentObject 또는 observedObject 형태로 다른 Scene으로 넘겨질 수 있습니다.
+5. WindowGroup을 사용하여 사용자는 동시에 1개 이상의 Window를 열 수 있습니다.
+6. App 프로토콜은 앱이 시작될 때 시스템이 호출하는 main() static method의 기본 구현부를 제공합니다.
+
+## Scene 프로토콜
+
+뷰 계층을 설계하기 위한 컨테이너
+
+> **Ref.** https://developer.apple.com/documentation/swiftui/scene
+
+```swift
+struct MyScene: Scene {
+    // scee 이 active 상태인지 다른 상태인지 확인하기 위한 값
+    @Environment(\.scenePhase) private var scenePhase   
+    @StateObject private var cache = DataCache()
+    
+    var body: some Scene {
+        WindowGroup {
+            MyRootView()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                cache.empty()   // 해당 scene이 백그라운드 모드면 캐시를 지우는 로직
+            }
+        }
+    }
+}
+```
+
+### WindowScene
+
+> **Ref.** https://developer.apple.com/documentation/swiftui/windowgroup
+
+Scene의 일종으로 동일하게 구조화된 Window들의 그룹
+- Content는 View 타입
+- 앱(App)에 표현 될 뷰계층을 위해 사용되는 컨테이너
+
+```swift
+@main
+struct Mail: App {
+    var body: some Scene {
+        WindowGroup {
+            MailViewer() // 뷰계층 선언
+        }
+    }
+}
+```
+
+WindowGroup은 default 한 built-in Scene 이고 내가 만약 Scene단에서 로직을 추가하여 커스터마이즈 하고 싶다면 Scene 프로토콜을 사용해 커스텀 Scene을 생성
+
+## View 프로토콜
+
+앱의 UI 일부를 표현하며 modifier로 View를 설정할 수 있음
+
+### View
+
+UI의 시각적 구조 블럭으로 텍스트, 이미지 등 UI 요소를 표현
+
+```swift
+struct MyView: View {
+    var body: some View {
+        Text("Hello")   // 커스텀 뷰
+            .opacity(0.5)   // modifier
+            .border(.gray)  // modifier -> modifier 간에 chaining 가능
+    }
+}
+```
+
+### Control
+
+앱에 적용된 API 등과 관련하여 이뤄지는 User Interaction 을 가능케 함
+
+### modifier
+
+1. 사이즈, 위치 등의 뷰 내 속성 제어
+2. 제스쳐 등 User Interaction을 받음
+3. 드래그 & 드랍 연산 지원
+애니메이션 & 전환 지원
+스타일 설정 & 그 외의 환경 데이터 설정
+
+
