@@ -20,6 +20,21 @@ LinearGradient(gradient: Gradient(colors: [.green, .purple]),
 
 </details>
 
+## Toggle
+
+### 토글 스위치 색 변경하기
+
+`SwitchToggleStyle(tint:)` 를 `toggleStyle(_:)` modifier에 적용하여 원하는 색으로 변경할 수 있다.
+
+<details>
+
+```swift
+Toggle("Blue", isOn: $isOn)
+  .toggleStyle(SwitchToggleStyle(tint: .blue))
+```
+
+</details>
+
 ## Button
 
 ### 버튼 스타일 커스터마이징 하기
