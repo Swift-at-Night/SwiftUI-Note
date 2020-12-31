@@ -244,10 +244,46 @@ ScrollView(showsIndicators: false) {
 
 </details>
 
-## ZStack
+## 뷰 전환
 
-### 밑에서 올라오는 뷰 만들기
-`State` 와 `withAnimation`, 그리고 `offset` 을 사용하여 밑에서 올라오는 뷰를 만들 수 있습니다.
+### 전체화면 형태의 모달 뷰(밑에서 올라오는 뷰) 만들기
+
+![iOS 14](https://img.shields.io/badge/iOS_14-e4405f?style=for-the-badge&logo=apple&logoColor=white)
+
+`View` 에 `fullScreenCover()` 를 사용하여 전체화면의 뷰를 밑에서 올라오도록 할 수 있습니다.
+
+<details>
+
+```swift
+struct BelowView: View {
+    @State private var isPresented = false
+
+    var body: some View {
+        Button("뷰 띄우기") {
+            self.isPresented.toggle()
+        }
+        .fullScreenCover(isPresented: $isPresented, content: UpperView.init)
+    }
+}
+```
+
+```swift
+struct FullScreenModalView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        Button("돌아가기") {
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+}
+```
+
+</details>
+
+![iOS 13](https://img.shields.io/badge/iOS_13-999999?style=for-the-badge&logo=apple&logoColor=white)
+
+`ZStack`, `State` 와 `withAnimation`, 그리고 `offset` 을 사용하여 밑에서 올라오는 뷰를 만들 수 있습니다.
 
 <details>
     
@@ -270,7 +306,9 @@ struct BelowView: View {
         }
     }
 }
+```
 
+```swift
 struct UpperView: View {
     @Binding var showingUpper: Bool         // 5. (3)번에서 바인딩한 프로퍼티
     
@@ -325,6 +363,10 @@ struct UpperView: View {
 예) 타이머 숫자, 이름을 입력받는 텍스트 필드
 
 이 속성으로 선언된 프로퍼티의 데이터의 값 변화를 전달받기 위해서는 `$` (바인딩) 을 사용하면 됩니다.
+
+> **개인 의견**
+> 뷰모델을 사용하는 경우 `@State` 속성의 프로퍼티는 가급적 뷰모델 내부에 `@Published` 로 옮기는 것이 좋습니다.
+> `$username` 을 `$viewModel.username` 형태로 동일하게 바인딩할 수 있습니다.
 
 <details>
   
@@ -396,3 +438,20 @@ struct UpperView: View {
   ```
 
 </details>
+
+### Published
+
+`ObservableObject` 프로토콜을 준수하는 뷰모델은 `@Published` 속성을 사용해서 값의 변화를 퍼블리싱 하여 뷰를 업데이트 할 수 있습니다.
+
+<details>
+  
+  ```swift
+  @Published var userID: String = ""
+  ```
+  
+  ```swift
+  TextField("아이디를 입력하세요", text: $observedObject.userID)
+  ```
+
+</details>
+
