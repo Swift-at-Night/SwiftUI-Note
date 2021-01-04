@@ -415,6 +415,26 @@ struct UpperView: View {
 
 </details>
 
+#### 뷰의 init에서 초기화 하기
+
+![iOS 14](https://img.shields.io/badge/iOS_14-e4405f?style=for-the-badge&logo=apple&logoColor=white)
+
+`StateObject.init(wrappedValue:)` 에 뷰모델 객체를 할당하여 `StateObject` 를 뷰의 `init` 에서 초기화 할 수 있습니다.
+
+<details>
+
+```swift
+@StateObject private var viewModel: ViewModel
+
+init(value: SomeValue) {
+    let viewModel = ViewModel(value: value)
+    self._viewModel = StateObject(wrappedValue: ViewModel)
+}
+
+```
+
+</details>
+
 ### ObservedObject
 
 `ObservedObject` 는 뷰모델은 현재 뷰의 라이프사이클에 맞춰 사용하고 싶을 때, 즉 현재 뷰 내에서만 사용할 때 쓰이는 속성입니다. (뷰가 관리)
