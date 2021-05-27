@@ -354,6 +354,25 @@ struct UpperView: View {
   
 </details>
 
+## some View
+이슈해결방법
+`Function declares an opaque return type, but the return statements in its body do not have matching underlying types` 
+
+https://developer.apple.com/forums/thread/118172
+
+Return them as `AnyView` values:
+```swift
+var body: some View { 
+    switch choices { 
+    case .one: 
+        return AnyView(MyView1())
+    case .two: 
+        return AnyView(MyView2())
+    } 
+}
+```
+
+
 ## State & Data Flows
 
 ### State
