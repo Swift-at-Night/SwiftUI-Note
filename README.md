@@ -466,6 +466,13 @@ init(value: SomeValue) {
 
 </details>
 
+#### 에러 처리하기: Accessing StateObject's object without being installed on a View
+
+`StateObject` 대신 `ObservedObject`를 사용하도록 해서 뷰에 설치(install)되기전 뷰모델에 접근하지 않도록 한다.
+StateObject는 SwiftUI 프레임워크에서 관리되며 ObsevedObject는 뷰에서 관리된다는 특징을 갖는다.
+즉 StateObject는 뷰 라이프사이클과 독립적이지만 ObservedObject는 뷰라이프 사이클에 의존한다.
+때문에 뷰에 설치 여부와 상관없이 StateObject에 접근할 수 있게 되고 이로인해 위와 같은 에러가 나는 것으로 추정된다. (개인의견)
+
 ### ObservedObject
 
 `ObservedObject` 는 뷰모델은 현재 뷰의 라이프사이클에 맞춰 사용하고 싶을 때, 즉 현재 뷰 내에서만 사용할 때 쓰이는 속성입니다. (뷰가 관리)
