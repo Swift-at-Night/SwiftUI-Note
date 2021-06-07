@@ -327,6 +327,18 @@ struct UpperView: View {
 
 ## Text
 
+### 날짜 보여주기
+
+`Text`를 생성할 때 `String` 값이 아닌 `Date` 타입의 값을 넣어 날짜를 보여줄 수 있습니다. `style` 를 적용할 수도 있습니다.
+
+<details>
+  
+  ```swift
+    Text(Date().addingTimeInterval(600), style: .date)
+  ```
+  
+</details>
+
 ### 한 개의 builder 안에 최대 몇 개까지 들어갈까?
 `VStack` 기준, 10개를 넘기면 에러가 발생합니다: `Extra argument in call`
 
